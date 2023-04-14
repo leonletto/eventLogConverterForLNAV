@@ -1,0 +1,54 @@
+{
+    "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+    "AgentLogs" : {
+        "title" : "Converted Windows Event Logs",
+        "description" : "Converted Windows Event Logs",
+        "json": true,
+        "timestamp-field": "@t",
+        "level-field" : "@l",
+        "body-field" : "@mt",
+        "module-field": "Provider",
+        "file-pattern" : ".*\\.log$",
+        "level" : {
+            "error" : "Error",
+            "warning" : "Warning",
+            "info" : "Info",
+            "debug" : "Debug",
+            "notice" : "Notice"
+        },
+        "value" : {
+            "@t": { 
+                "kind": "string"
+            },
+            "Event" : {
+                "kind" : "string"
+            },
+            "@l" : {
+                "kind" : "string"
+            },
+            "EventID" : {
+                "kind" : "string"
+            },
+            "sourceFile" : {
+                "kind" : "integer"
+            },
+            "sourceType" : {
+                "kind" : "string"
+            },
+            "Provider" : {
+                "kind" : "integer"
+            },
+            "Computer" : {
+                "kind" : "string"
+            },
+            "@mt" : {
+                "kind" : "string"
+            }
+        },
+        "sample": [
+            {
+                "line": "{\"@t\": \"2023-04-08 01:11:00.710766\", \"@l\": \"Info\", \"EventID\": \"0\", \"sourceFile\": \"Application_EventLogs.evtx\", \"sourceType\": \"win:evtx\", \"Provider\": \"edgeupdate\", \"Computer\": \"WINDOWS-MJ4GBFS\", \"@mt\": {\"@xmlns\": \"http://schemas.microsoft.com/win/2004/08/events/event\", \"System\": {\"Provider\": {\"@Name\": \"edgeupdate\"}, \"EventID\": {\"@Qualifiers\": \"0\", \"#text\": \"0\"}, \"Version\": \"0\", \"Level\": \"4\", \"Task\": \"0\", \"Opcode\": \"0\", \"Keywords\": \"0x0080000000000000\", \"TimeCreated\": {\"@SystemTime\": \"2023-04-08 01:11:00.710766\"}, \"EventRecordID\": \"571\", \"Correlation\": {\"@ActivityID\": \"\", \"@RelatedActivityID\": \"\"}, \"Execution\": {\"@ProcessID\": \"0\", \"@ThreadID\": \"0\"}, \"Channel\": \"Application\", \"Computer\": \"WINDOWS-MJ4GBFS\", \"Security\": {\"@UserID\": \"\"}}, \"EventData\": {\"Data\": \"<string>Service stopped</string>\", \"Binary\": null}}}"
+            }
+        ]
+    }
+}
