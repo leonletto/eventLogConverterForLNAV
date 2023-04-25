@@ -1,6 +1,7 @@
 # WSOneLogConverterForLNAV
 
-A handy tool to convert Workspace ONE log files into a format compatible with the powerful LNAV log file viewer.
+A handy tool to convert some incompatible logs into a format compatible with the powerful LNAV log file viewer.  Designed 
+for use with Workspace ONE windows Log Bundles.
 
 ## Table of Contents
 
