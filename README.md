@@ -32,6 +32,15 @@ Step 2 is to add a timestamp to the Installerlog files which have a time stamp b
 Step 3 is to take any Windows Event Logs and convert them to a json format in a similar style to the
 standard Workspace ONE logs.   This is done using the python-evtx library.
 
+# Requirements
+* Mac or Linux or WSL on Windows
+* Python 3.x
+* LNAV log file viewer (available at https://lnav.org/)
+* The following Python packages:
+  * python-evtx
+  * pandas
+  * xmltodict
+
 ## Note
 
 By default, new files will be created in the following way:
