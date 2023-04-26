@@ -21,7 +21,13 @@ def main():
     # find all the json files in /tmp/test and put the full path in a list
     # print("Enter the root directory to search for json files: ")
     # rootDir = input()
-    rootDir = "testFiles"
+    print("Enter the root directory to search for json files: ")
+    rootDir = input()
+    # find all the json files in /tmp/test and put the full path in a list
+    # print("Enter the root directory to search for json files: ")
+    # rootDir = input()
+    if rootDir == "":
+        rootDir = "testFiles"
     dirs = findAllFoldersin(rootDir)
 
     jsonFiles = []
@@ -70,7 +76,8 @@ def categorize_files_to_process(dirs, installerLog_files, jsonFiles, windows_eve
                         # print(fileExtension)
                         if re.search("InstallerLog_", full_file_name):
                             if not re.search("_new", full_file_name):
-                                installerLog_files.append(os.path.join(root, file))
+                                if os.path.join(root, file) not in installerLog_files:
+                                    installerLog_files.append(os.path.join(root, file))
 
                         elif fileExtension == ".log":
                             try:
@@ -80,9 +87,11 @@ def categorize_files_to_process(dirs, installerLog_files, jsonFiles, windows_eve
                             else:
                                 if firstChar == "{":
                                     # add the full path to the json file to the list
-                                    jsonFiles.append(os.path.join(root, file))
+                                    if os.path.join(root, file) not in jsonFiles:
+                                        jsonFiles.append(os.path.join(root, file))
                         elif fileExtension == ".evtx":
-                            windows_eventLog_files.append(os.path.join(root, file))
+                            if os.path.join(root, file) not in windows_eventLog_files:
+                                windows_eventLog_files.append(os.path.join(root, file))
 
 
 def change_installerLog_file(input_file, date_to_prepend, output_file=None):
@@ -217,8 +226,10 @@ def convert_windows_eventLog_files(source_file, output_file):
 
         for record_item, record in enumerate(log.records()):
             print(f"\rProcessing record {record_item} of {record_length} records from {source_file_name}...", end="")
-
-            data_dict = xmltodict.parse(record.xml())
+            try:
+                data_dict = xmltodict.parse(record.xml())
+            except KeyError:
+                pass
             input_datetime = datetime.strptime(f"{data_dict['Event']['System']['TimeCreated']['@SystemTime']}", "%Y-%m-%d %H:%M:%S.%f")
             # input_datetime = f"{input_datetime}0"
             # new time format matching 2023-03-21T16:05:10.0410469Z

@@ -79,7 +79,8 @@ pip install -r requirements.txt
 *Replace*`<path_to_log_folder>` *with the path to your Workspace ONE log files which have been unzipped*
 
 ```bash
-python WSOneLogConverterForLNAV.py <path_to_log_folder>
+python WSOneLogConverterForLNAV.py
+Enter the root directory to search for json files: <path_to_log_folder>
 ```
 
 5 Launch LNAV and load the converted log files:
