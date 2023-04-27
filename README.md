@@ -83,13 +83,30 @@ pip install python-evtx pandas xmltodict
 pip install -r requirements.txt
 ```
 
-4. Run the WSOneLogConverterForLNAV Python script with the appropriate arguments:
+4. Run the ConvertWSOneLogs.py Python script with the appropriate arguments:
 
 *Replace*`<path_to_log_folder>` *with the path to your Workspace ONE log files which have been unzipped*
 
 ```bash
-python WSOneLogConverterForLNAV.py
+python ConvertWSOneLogs.py
 Enter the root directory to search for json files: <path_to_log_folder>
+```
+
+5. Install LNAV log file viewer (available at https://lnav.org/)
+
+```bash
+# For Mac
+brew install lnav
+```
+note: for Linux, the ubuntu package is out of date.  You will need either download the latest version from the lnav website
+or use Snap to install it.   I will show the snap install below.
+
+```bash
+# For Linux
+# https://snapcraft.io/install/lnav/ubuntu
+sudo apt update
+sudo apt install snapd
+sudo snap install lnav
 ```
 
 5 Launch LNAV and load the converted log files:
