@@ -55,7 +55,7 @@ You can change the python file to change these options.
 Before using WSOneLogConverterForLNAV, ensure you have the following prerequisites installed:
 
 - Python 3.x
-- LNAV log file viewer (available at https://lnav.org/)
+- LNAV 0.11 or later log file viewer (available at https://lnav.org/)
 - The following Python packages:
   - python-evtx
   - pandas
