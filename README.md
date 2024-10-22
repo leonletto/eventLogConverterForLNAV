@@ -92,6 +92,12 @@ python ConvertWSOneLogs.py
 Enter the root directory to search for json files: <path_to_log_folder>
 ```
 
+OR
+
+```bash
+python ConvertWSOneLogs.py <path_to_log_folder>
+```
+
 5. Install LNAV log file viewer (available at https://lnav.org/)
 
 ```bash
