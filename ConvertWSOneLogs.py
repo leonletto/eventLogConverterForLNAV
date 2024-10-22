@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 import json
 import re
@@ -19,16 +20,23 @@ def findAllFoldersin(directory):
 
 def main():
     # find all the json files in /tmp/test and put the full path in a list
+    # if the command line has a passed path then use that path
+    rootDir = ""
+    if len(sys.argv) > 1:
+        rootDir = sys.argv[1]
+    else:
+        print("Enter the root directory to search for json files: ")
+        rootDir = input()
     # print("Enter the root directory to search for json files: ")
     # rootDir = input()
-    print("Enter the root directory to search for json files: ")
-    rootDir = input()
+    # print("rootDir: ", rootDir)
     # find all the json files in /tmp/test and put the full path in a list
     # print("Enter the root directory to search for json files: ")
     # rootDir = input()
     if rootDir == "":
         rootDir = "testFiles"
     dirs = findAllFoldersin(rootDir)
+    # print("dirs: ", dirs)
 
     jsonFiles = []
     installerLog_files = []
@@ -211,7 +219,8 @@ def convert_windows_eventLog_files(source_file, output_file):
         1: "Debug",
         2: "Error",
         3: "Warning",
-        4: "Info"
+        4: "Info",
+        5: "Critical",
     }
 
     source_file_name = os.path.basename(source_file)
@@ -234,7 +243,7 @@ def convert_windows_eventLog_files(source_file, output_file):
             # input_datetime = f"{input_datetime}0"
             # new time format matching 2023-03-21T16:05:10.0410469Z
             new_dict = {
-                # remove the laast three characters from the time field so its the same as the rest of our logfiles.
+                # remove the least three characters from the time field so its the same as the rest of our logfiles.
 
                 '@t': input_datetime.strftime("%Y-%m-%dT%H:%M:%S.%f") + "0Z",
                 '@l': levels[int(data_dict['Event']['System']['Level'])],
