@@ -44,8 +44,8 @@ def main():
     categorize_files_to_process(dirs, installerLog_files, jsonFiles, windows_eventLog_files)
 
     # loop through the list of json files
-    for jsonFile in jsonFiles:
-        sort_json_file(jsonFile)
+    # for jsonFile in jsonFiles:
+    #     sort_json_file(jsonFile)
 
     # loop through the list of installerLog files
     for installerLog_file in installerLog_files:
