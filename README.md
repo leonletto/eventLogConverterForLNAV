@@ -9,8 +9,9 @@ for use with Workspace ONE windows Log Bundles.
 2. [Prerequisites](#prerequisites)
 3. [Installation](#installation)
 4. [Usage](#usage)
-5. [Contributing](#contributing)
-6. [License](#license)
+5. [LNAV Parsers](#lnav-parsers)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 ## Introduction
 
@@ -123,6 +124,41 @@ lnav -r <path_to_log_folder>
 ```
 
 Now you can use LNAV's powerful features to analyze and troubleshoot Workspace ONE log files with ease.
+
+## LNAV Parsers
+
+The `parsers/` directory contains LNAV format definitions that teach LNAV how to read
+Workspace ONE log files. Each JSON registers one or more log formats; once registered,
+LNAV automatically detects the format when you open a matching file.
+
+| Parser | Covers |
+|--------|--------|
+| `parsers/AllWindowsParsers.json` | Workspace ONE agent logs, install logs, and Windows Event Logs (after conversion via `ConvertWSOneLogs.py`) |
+| `parsers/WSOneServerLogsParsers.json` | Workspace ONE UEM on-prem server logs (Device Services, Console, API, etc.) |
+| `parsers/WSOneHorizonLogs.json` | Omnissa Horizon client and agent logs |
+| `parsers/WSOneMacHubLogs.json` | Workspace ONE Intelligent Hub for macOS logs |
+
+### Register the parsers
+
+Install once per machine; LNAV picks them up on subsequent launches.
+
+```bash
+for parser in parsers/*.json; do
+    lnav -i "$parser"
+done
+```
+
+To register a single parser:
+
+```bash
+lnav -i parsers/AllWindowsParsers.json
+```
+
+Verify registered formats:
+
+```bash
+lnav -m formats | grep -i wsone
+```
 
 ## Contributing
 
