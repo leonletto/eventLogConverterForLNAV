@@ -8,7 +8,7 @@
                 "pattern" : "^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}-\\d{4})\\s+(?<level>\\w+)\\s+(?<pid>\\d+)\\s+(?<process>\\w+:)\\s+\\[(?<subsystem>[^:]+):(?<category>\\w+)\\]\\s+(?<body>.*)$"
             }
         },
-        "timestamp-format" : ["%Y-%d-%m %H:%M:%S-%Z"],
+        "timestamp-format" : ["%Y-%m-%d %H:%M:%S%z"],
         "timestamp-field": "timestamp",
         "body-field" : "body",
         "module-field": "process",
@@ -21,10 +21,10 @@
       "convert-to-local-time" : true,
         "sample" : [
             {
-		    "line": "2022-22-10 16:55:40-0700    Default   85       hubd: [com.apple.network:boringssl] boringssl_context_certificate_verify_callback(1793) [C36.1:2][0x144f3beb0] Certificate verification result: OK"
+		    "line": "2022-10-22 16:55:40-0700    Default   85       hubd: [com.apple.network:boringssl] boringssl_context_certificate_verify_callback(1793) [C36.1:2][0x144f3beb0] Certificate verification result: OK"
 	    },
 	    {
-            "line" : "2022-22-10 16:44:36-0700    Default   1695     IntelligentHubAgent: [com.vmware.hub.uem:XPC] XPC: Agent received data from Optional(hubd)."
+            "line" : "2022-10-22 16:44:36-0700    Default   1695     IntelligentHubAgent: [com.vmware.hub.uem:XPC] XPC: Agent received data from Optional(hubd)."
 	    }
         ]
     },
@@ -34,11 +34,11 @@
         "url" : "http://example.com/log-format.html",
         "regex" : {
             "basic" : {
-                "pattern" : "^(?<timestamp>\\w{3} \\d{2} \\d{4} \\d{2}:\\d{2}:\\d{2} -\\d{4})\\s+(?<level>\\w+:){0,1}\\s+(?<body>.*)$"
+                "pattern" : "^(?<timestamp>\\w{3} \\d{2} \\d{4} \\d{2}:\\d{2}:\\d{2} [-+]\\d{4})\\s+(?<level>\\w+:){0,1}\\s+(?<body>.*)$"
             }
         },
         "timestamp-field": "timestamp",
-        "timestamp-format" : ["%b %d %Y %H:%M:%S -%Z"],
+        "timestamp-format" : ["%b %d %Y %H:%M:%S %z"],
         "body-field" : "body",
         "level-field" : "level",
         "level" : {
