@@ -239,7 +239,22 @@ def convert_windows_eventLog_files(source_file, output_file):
                 data_dict = xmltodict.parse(record.xml())
             except KeyError:
                 pass
-            input_datetime = datetime.strptime(f"{data_dict['Event']['System']['TimeCreated']['@SystemTime']}", "%Y-%m-%d %H:%M:%S.%f")
+            raw_ts = f"{data_dict['Event']['System']['TimeCreated']['@SystemTime']}"
+            # python-evtx 0.7.x emits a few variant timestamp shapes depending
+            # on the Windows build:
+            #   "2024-03-12 19:15:36.123456+00:00"  (newer, with TZ offset)
+            #   "2024-03-12 19:15:36.123456"        (with fractional seconds)
+            #   "2024-03-12 19:15:36"               (whole seconds, no TZ)
+            # Strip the TZ offset and pad fractional seconds so the downstream
+            # format string matches all three.
+            for offset_marker in ('+', '-'):
+                tz_idx = raw_ts.rfind(offset_marker, 10)
+                if tz_idx != -1 and (':' in raw_ts[tz_idx:] or raw_ts[tz_idx:].lstrip('+-').isdigit()):
+                    raw_ts = raw_ts[:tz_idx]
+                    break
+            if '.' not in raw_ts:
+                raw_ts = raw_ts + '.000000'
+            input_datetime = datetime.strptime(raw_ts, "%Y-%m-%d %H:%M:%S.%f")
             # input_datetime = f"{input_datetime}0"
             # new time format matching 2023-03-21T16:05:10.0410469Z
             new_dict = {
